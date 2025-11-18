@@ -1,7 +1,7 @@
 class Ostoskori:
     def __init__(self):
         self._tuotteet = []
-    
+
     def lisaa(self, tuote):
         self._tuotteet.append(tuote)
 
