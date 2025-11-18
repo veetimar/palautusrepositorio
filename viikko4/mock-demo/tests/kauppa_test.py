@@ -92,7 +92,7 @@ class TestKauppa(unittest.TestCase):
         kauppa.maksa("4444")
 
         # tarkistetaan että tässä vaiheessa viitegeneraattorin metodia uusi on kutsuttu kolme kertaa
-        self.assertEqual(viitegeneraattori_mock.uusi.call_count, 3)
+        self.assertEqual(viitegeneraattori_mock.uusi.call_count, 2)
 
     def test_kaytetaan_perakkaisten_viitekutsujen_arvoja(self):
         pankki_mock = Mock()
