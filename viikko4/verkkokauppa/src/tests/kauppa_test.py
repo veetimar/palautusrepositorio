@@ -1,8 +1,6 @@
 import unittest
 from unittest.mock import Mock, ANY
 from kauppa import Kauppa
-from viitegeneraattori import Viitegeneraattori
-from varasto import Varasto
 from tuote import Tuote
 
 class TestKauppa(unittest.TestCase):
