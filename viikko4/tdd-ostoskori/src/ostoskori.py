@@ -23,6 +23,7 @@ class Ostoskori:
         return total
 
     def lisaa_tuote(self, lisattava: Tuote):
+        # lisää tuotteen
         for ostos in self.ostoslista:
             if ostos.tuotteen_nimi() == lisattava.nimi():
                 ostos.muuta_lukumaaraa(1)
@@ -30,6 +31,7 @@ class Ostoskori:
         self.ostoslista.append(Ostos(lisattava))
 
     def poista_tuote(self, poistettava: Tuote):
+        # poistaa tuotteen
         for ostos in self.ostoslista:
             if ostos.tuotteen_nimi() == poistettava.nimi():
                 ostos.muuta_lukumaaraa(-1)
@@ -39,7 +41,7 @@ class Ostoskori:
 
     def tyhjenna(self):
         # tyhjentää ostoskorin
-        pass
+        self.ostoslista.clear()
 
     def ostokset(self):
         # palauttaa listan jossa on korissa olevat ostos-oliot
