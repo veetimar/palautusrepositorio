@@ -51,11 +51,11 @@ class TennisGame:
 
     def _format_points(self, points):
         if points == 0:
-            points = "Love"
+            score_name = "Love"
         elif points == 1:
-            points = "Fifteen"
+            score_name = "Fifteen"
         elif points == 2:
-            points = "Thirty"
+            score_name = "Thirty"
         elif points == 3:
-            points = "Forty"
-        return points
+            score_name = "Forty"
+        return score_name
