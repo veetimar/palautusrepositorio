@@ -17,7 +17,7 @@ class Kayttoliittyma:
             Komento.SUMMA: lambda x: self._sovelluslogiikka.plus(x),
             Komento.EROTUS: lambda x: self._sovelluslogiikka.miinus(x),
             Komento.NOLLAUS: lambda x: self._sovelluslogiikka.nollaa(),
-            Komento.KUMOA: lambda x: None
+            Komento.KUMOA: lambda x: self._sovelluslogiikka.kumoa()
         }
 
     def kaynnista(self):
