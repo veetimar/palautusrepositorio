@@ -68,7 +68,7 @@ def test_reset_route_resets_scores(client):
     # kasvatetaan pisteitä
     client.post("/game/ai", data={"eka": "k"})
 
-    response = client.get("/game/ai/reset", follow_redirects=True)
+    response = client.post("/game/ai/reset", follow_redirects=True)
     assert response.status_code == 200
     html = response.get_data(as_text=True)
     # nollatut pisteet

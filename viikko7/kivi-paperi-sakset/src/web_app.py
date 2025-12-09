@@ -120,11 +120,15 @@ GAME_TEMPLATE = """
 
         <div class="btn-row">
           <button class="btn" type="submit">Pelaa kierros</button>
-          <a class="btn secondary" href="{{ url_for('game_reset', mode=mode) }}">Aloita alusta</a>
-          <a class="btn secondary" href="{{ url_for('index') }}">Takaisin alkuun</a>
         </div>
         <div class="hint">Peli päättyy, kun jompikumpi on voittanut 5 kertaa tai annat muun kuin k, p tai s.</div>
       </form>
+      <div class="btn-row">
+        <form method="post" action="{{ url_for('game_reset', mode=mode) }}" style="display:inline;">
+          <button class="btn secondary" type="submit">Aloita alusta</button>
+        </form>
+        <a class="btn secondary" href="{{ url_for('index') }}">Takaisin alkuun</a>
+      </div>
     </div>
   </body>
 </html>
@@ -165,30 +169,30 @@ def game(mode):
     last_move_info = None
 
     if request.method == "POST":
-      if tuomari.on_peli_loppu():
-        last_move_info = (
-          "Peli on jo päättynyt, koska joku on voittanut 5 kertaa. "
-          "Aloita uusi peli, jos haluat jatkaa."
-        )
-      else:
-        eka = request.form.get("eka", "").strip().lower()
-
-        if mode == "pvp":
-          toka = request.form.get("toka", "").strip().lower()
-        elif mode == "ai":
-          toka = tekoaly.anna_siirto()
-        else:  # better_ai
-          toka = parempi_tekoaly.anna_siirto()
-          parempi_tekoaly.aseta_siirto(eka)
-
-        if not (_onko_ok_siirto(eka) and _onko_ok_siirto(toka)):
-          last_move_info = "Peli päättyi virheelliseen siirtoon. Aloita uusi peli, jos haluat jatkaa."
+        if tuomari.on_peli_loppu():
+            last_move_info = (
+                "Peli on jo päättynyt, koska joku on voittanut 5 kertaa. "
+                "Aloita uusi peli, jos haluat jatkaa."
+            )
         else:
-          tuomari.kirjaa_siirto(eka, toka)
-          if mode == "pvp":
-            last_move_info = f"Ensimmäinen pelaaja: {eka}, toinen pelaaja: {toka}"
-          else:
-            last_move_info = f"Sinä: {eka}, tietokone: {toka}"
+            eka = request.form.get("eka", "").strip().lower()
+
+            if mode == "pvp":
+                toka = request.form.get("toka", "").strip().lower()
+            elif mode == "ai":
+                toka = tekoaly.anna_siirto()
+            else:  # better_ai
+                toka = parempi_tekoaly.anna_siirto()
+                parempi_tekoaly.aseta_siirto(eka)
+
+            if not (_onko_ok_siirto(eka) and _onko_ok_siirto(toka)):
+                last_move_info = "Peli päättyi virheelliseen siirtoon. Aloita uusi peli, jos haluat jatkaa."
+            else:
+                tuomari.kirjaa_siirto(eka, toka)
+                if mode == "pvp":
+                    last_move_info = f"Ensimmäinen pelaaja: {eka}, toinen pelaaja: {toka}"
+                else:
+                    last_move_info = f"Sinä: {eka}, tietokone: {toka}"
 
     return render_template_string(
         GAME_TEMPLATE,
@@ -199,7 +203,7 @@ def game(mode):
     )
 
 
-@app.route("/game/<mode>/reset")
+@app.route("/game/<mode>/reset", methods=["POST"])
 def game_reset(mode):
     if mode not in {"pvp", "ai", "better_ai"}:
         return redirect(url_for("index"))
