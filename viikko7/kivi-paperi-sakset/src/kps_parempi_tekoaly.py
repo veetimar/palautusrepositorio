@@ -1,5 +1,5 @@
 from tuomari import Tuomari
-from tekoaly_parannettu import TekoalyParannettu
+from tekoaly import TekoalyParannettu
 
 
 class KPSParempiTekoaly:
