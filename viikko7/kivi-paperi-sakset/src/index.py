@@ -1,6 +1,4 @@
-from kps_pelaaja_vs_pelaaja import KPSPelaajaVsPelaaja
-from kps_tekoaly import KPSTekoaly
-from kps_parempi_tekoaly import KPSParempiTekoaly
+from kps import KPS
 
 
 def main():
@@ -21,11 +19,11 @@ def hae_peli():
           )
     vastaus = input()
     if vastaus.endswith("a"):
-        return KPSPelaajaVsPelaaja()
+        return KPS.pelaaja_vs_pelaaja()
     elif vastaus.endswith("b"):
-        return KPSTekoaly()
+        return KPS.tekoaly()
     elif vastaus.endswith("c"):
-        return KPSParempiTekoaly()
+        return KPS.parempi_tekoaly()
     else:
         return None
 
