@@ -26,5 +26,8 @@ class Tuomari:
             return True
         return False
 
+    def on_peli_loppu(self):
+        return self._ekan_pisteet >= 5 or self._tokan_pisteet >= 5
+
     def __str__(self):
         return f"Pelitilanne: {self._ekan_pisteet} - {self._tokan_pisteet}\nTasapelit: {self._tasapelit}"

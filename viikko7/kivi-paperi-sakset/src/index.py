@@ -6,7 +6,8 @@ def main():
         peli = hae_peli()
         if peli is None:
             break
-        print("Peli loppuu kun pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s")
+        print("Peli loppuu, kun jompikumpi pelaajista on voittanut 5 kertaa ")
+        print("tai pelaaja antaa virheellisen siirron eli jonkun muun kuin k, p tai s")
         peli.pelaa()
 
 
