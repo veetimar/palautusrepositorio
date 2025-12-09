@@ -42,7 +42,7 @@ INDEX_TEMPLATE = """
   <body>
     <div class="container">
       <h1>Kivi-Paperi-Sakset - selainversio</h1>
-      <p>Valitse pelimuoto. Peli päättyy, kun jompikumpi on voittanut 5 kertaa tai annat virheellisen siirron (jonkun muun kuin <strong>k</strong>, <strong>p</strong> tai <strong>s</strong>).</p>
+      <p>Valitse pelimuoto. Peli päättyy, kun jompikumpi on voittanut 3 kertaa tai annat virheellisen siirron (jonkun muun kuin <strong>k</strong>, <strong>p</strong> tai <strong>s</strong>).</p>
       <div class="modes">
         <div class="card">
           <h2>Ihminen vs ihminen</h2>
@@ -121,7 +121,7 @@ GAME_TEMPLATE = """
         <div class="btn-row">
           <button class="btn" type="submit">Pelaa kierros</button>
         </div>
-        <div class="hint">Peli päättyy, kun jompikumpi on voittanut 5 kertaa tai annat muun kuin k, p tai s.</div>
+        <div class="hint">Peli päättyy, kun jompikumpi on voittanut 3 kertaa tai annat muun kuin k, p tai s.</div>
       </form>
       <div class="btn-row">
         <form method="post" action="{{ url_for('game_reset', mode=mode) }}" style="display:inline;">
@@ -171,7 +171,7 @@ def game(mode):
     if request.method == "POST":
         if tuomari.on_peli_loppu():
             last_move_info = (
-                "Peli on jo päättynyt, koska joku on voittanut 5 kertaa. "
+                "Peli on jo päättynyt, koska joku on voittanut 3 kertaa. "
                 "Aloita uusi peli, jos haluat jatkaa."
             )
         else:
