@@ -75,19 +75,19 @@ def test_reset_route_resets_scores(client):
     assert "Pelitilanne: 0 - 0" in html
 
 
-def test_game_stops_scoring_after_five_wins_pvp(client):
+def test_game_stops_scoring_after_three_wins_pvp(client):
     tuomari = _get_tuomari_for_mode("pvp")
     tuomari._ekan_pisteet = 0
     tuomari._tokan_pisteet = 0
     tuomari._tasapelit = 0
 
-    # eka pelaaja voittaa viisi kierrosta peräkkäin
-    for _ in range(5):
+    # eka pelaaja voittaa kolme kierrosta peräkkäin
+    for _ in range(3):
         client.post("/game/pvp", data={"eka": "k", "toka": "s"})
 
     response = client.post("/game/pvp", data={"eka": "k", "toka": "s"})
     html = response.get_data(as_text=True)
 
-    # pisteiden ei pitäisi enää kasvaa yli viiden
-    assert "Pelitilanne: 5 - 0" in html
-    assert "Peli on jo päättynyt, koska joku on voittanut 5 kertaa" in html
+    # pisteiden ei pitäisi enää kasvaa yli kolmen
+    assert "Pelitilanne: 3 - 0" in html
+    assert "Peli on jo päättynyt, koska joku on voittanut 3 kertaa" in html
